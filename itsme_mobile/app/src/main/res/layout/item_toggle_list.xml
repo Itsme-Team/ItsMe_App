@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="25dp"
+        android:layout_marginStart="-10dp"
         android:gravity="center_vertical">
 
         <!-- 텍스트 -->
@@ -22,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="기본 텍스트"
-            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="13sp"
             android:textColor="#333333" />
 
         <!-- 토글 스위치 -->

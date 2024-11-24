@@ -96,8 +96,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:paddingBottom="50dp"
-        android:paddingTop="50dp"/>
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"/>
 
     <!-- 하단 네비게이션 바 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
