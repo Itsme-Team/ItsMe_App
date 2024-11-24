@@ -50,13 +50,11 @@ class DefaultRepliesActivity : AppCompatActivity() {
         // RecyclerView 설정
         recyclerView = findViewById(R.id.recyclerViewDefaultReplies)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ToggleListAdapter(items) { item, isChecked ->
-            println("Item: ${item.text}, Checked: $isChecked")
-        }
+        adapter = ToggleListAdapter(items)
         recyclerView.adapter = adapter
 
         // SpacingItemDecoration 추가
-        val spacingInPixels = (3 * resources.displayMetrics.density).toInt() // 16dp를 픽셀로 변환
+        val spacingInPixels = (15 * resources.displayMetrics.density).toInt() // 16dp를 픽셀로 변환
         recyclerView.addItemDecoration(SpacingItemDecoration(spacingInPixels))
 
         // ItemTouchHelper 연결
@@ -69,9 +67,10 @@ class DefaultRepliesActivity : AppCompatActivity() {
             finish()
         }
 
-        // 검색 필드
-        val searchField: EditText = findViewById(R.id.searchField)
-        searchField.addTextChangedListener(object : TextWatcher {
+
+        // 두 번째 검색 필드 (추가된 searchEditText)
+        val searchEditText: EditText = findViewById(R.id.searchEditText)
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -80,6 +79,7 @@ class DefaultRepliesActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
         // BottomNavigationView 설정
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         NavigationUtils.setupBottomNavigation(this, bottomNavigationView)

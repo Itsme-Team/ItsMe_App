@@ -28,13 +28,6 @@
             android:textColor="#333333" />
 
         <!-- 토글 스위치 -->
-        <Switch
-            android:id="@+id/itemSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:thumb="@drawable/switch_thumb"
-            android:track="@drawable/switch_track"
-            android:splitTrack="false" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
