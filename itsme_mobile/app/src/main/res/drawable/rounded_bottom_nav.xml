@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@android:color/white" />
+    <!-- 원하는 배경색으로 변경 가능 -->
+
+    <corners
+        android:topLeftRadius="16dp"
+        android:topRightRadius="16dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+    <!-- 위쪽 모서리만 둥글게 설정 -->
+
+    <padding
+        android:left="4dp"
+        android:right="4dp"
+        android:top="8dp"
+        android:bottom="8dp" />
+
+</shape>

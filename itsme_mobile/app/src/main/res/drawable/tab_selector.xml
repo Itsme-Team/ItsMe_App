@@ -1,0 +1,16 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 선택된 상태 -->
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <size android:width="6dp" android:height="6dp" /> <!-- 선택된 점 크기 -->
+            <solid android:color="@color/blue_primary" />
+        </shape>
+    </item>
+    <!-- 비선택된 상태 -->
+    <item>
+        <shape android:shape="oval">
+            <size android:width="4dp" android:height="4dp" /> <!-- 비선택된 점 크기 -->
+            <solid android:color="@android:color/darker_gray" />
+        </shape>
+    </item>
+</selector>

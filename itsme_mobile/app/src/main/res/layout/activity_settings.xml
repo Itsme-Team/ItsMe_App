@@ -1,0 +1,210 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FB">
+
+    <!-- 뒤로가기 버튼 -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="뒤로가기 버튼"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp" />
+
+    <!-- 환경설정 제목 -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환경설정"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@id/backButton"
+        app:layout_constraintBaseline_toBaselineOf="@id/backButton"
+        android:layout_marginStart="4dp" />
+
+    <!-- 물음표 아이콘 -->
+    <ImageView
+        android:id="@+id/questionIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_question_mark"
+        android:contentDescription="도움말 아이콘"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/backButton"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp" />
+
+    <!-- 등록 프로필 정보 라벨 -->
+    <TextView
+        android:id="@+id/profileLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="등록 프로필 정보"
+        android:textSize="16sp"
+        android:textColor="#6D6D6D"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- 등록 프로필 정보 텍스트 상자 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/profileInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profileLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="-10dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/profileEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            android:text="나지완"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- 변경 텍스트 -->
+    <TextView
+        android:id="@+id/changeProfileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="변경"
+        android:textSize="14sp"
+        android:textColor="#1E88E5"
+        app:layout_constraintTop_toTopOf="@id/profileInputLayout"
+        app:layout_constraintBottom_toBottomOf="@id/profileInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp" />
+
+    <!-- 친구 초대 라벨 -->
+    <TextView
+        android:id="@+id/inviteFriendsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구 초대"
+        android:textSize="16sp"
+        android:textColor="#6D6D6D"
+        app:layout_constraintTop_toBottomOf="@id/profileInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- 친구에게 추천하기 텍스트 -->
+    <TextView
+        android:id="@+id/recommendFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구에게 추천하기"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/inviteFriendsLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- 카카오톡 초대하기 텍스트 버튼 -->
+    <TextView
+        android:id="@+id/shareKakaoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카카오톡 연결"
+        android:textSize="14sp"
+        android:textColor="#1E88E5"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="@id/recommendFriends"
+        app:layout_constraintBottom_toBottomOf="@id/recommendFriends"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp" />
+
+    <!-- 친구 초대 섹션 밑줄 -->
+    <View
+        android:id="@+id/inviteFriendsDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@id/recommendFriends"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+    <!-- 초대 코드 텍스트 상자 -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inviteCodeInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/inviteFriendsDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inviteCodeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="초대코드 입력"
+            android:inputType="text"
+            android:background="@android:color/transparent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- 로그아웃 버튼 -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:padding="16dp"
+        android:text="로그아웃"
+        android:textSize="10sp"
+        app:cornerRadius="16dp"
+        android:backgroundTint="#E0E0E0"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@id/deleteAccountButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <!-- 회원 탈퇴 버튼 -->
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:padding="16dp"
+        android:text="회원 탈퇴"
+        android:textSize="10sp"
+        app:cornerRadius="16dp"
+        android:backgroundTint="#E0E0E0"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_replies"
+        android:icon="@drawable/ic_profile"
+        android:title="기본 답변" />
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="기본 홈" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_chat"
+        android:title="환경 설정" />
+</menu>

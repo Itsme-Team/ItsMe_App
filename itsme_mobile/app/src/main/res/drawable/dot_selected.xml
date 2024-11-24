@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <size
+        android:width="4dp"
+        android:height="4dp" />
+    <solid android:color="#BDBDBD" /> <!-- 비활성화된 점 색상 -->
+</shape>
