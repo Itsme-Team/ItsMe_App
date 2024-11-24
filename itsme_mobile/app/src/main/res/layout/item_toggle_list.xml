@@ -33,5 +33,6 @@
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/switch_track"
             android:splitTrack="false" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

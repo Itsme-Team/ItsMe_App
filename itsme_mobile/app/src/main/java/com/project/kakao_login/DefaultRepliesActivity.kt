@@ -55,6 +55,10 @@ class DefaultRepliesActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
+        // SpacingItemDecoration 추가
+        val spacingInPixels = (3 * resources.displayMetrics.density).toInt() // 16dp를 픽셀로 변환
+        recyclerView.addItemDecoration(SpacingItemDecoration(spacingInPixels))
+
         // ItemTouchHelper 연결
         val itemTouchHelper = ItemTouchHelper(DragDropHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
