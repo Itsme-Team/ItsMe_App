@@ -8,15 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ToggleListAdapter(
-    private val originalItems: MutableList<ToggleItem>, // 원본 데이터를 MutableList로 관리
-    private val onToggleChanged: (ToggleItem, Boolean) -> Unit
+    private val originalItems: MutableList<ToggleItem> // 원본 데이터를 MutableList로 관리
 ) : RecyclerView.Adapter<ToggleListAdapter.ToggleViewHolder>() {
 
     private var filteredItems: MutableList<ToggleItem> = originalItems.toMutableList() // 필터된 데이터도 MutableList로 관리
 
     class ToggleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemText: TextView = itemView.findViewById(R.id.itemText)
-        val itemSwitch: Switch = itemView.findViewById(R.id.itemSwitch)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToggleViewHolder {
@@ -28,14 +26,8 @@ class ToggleListAdapter(
     override fun onBindViewHolder(holder: ToggleViewHolder, position: Int) {
         val item = filteredItems[position]
         holder.itemText.text = item.text
-        holder.itemSwitch.isChecked = item.isChecked
-
-        // 스위치 상태 변경 이벤트 처리
-        holder.itemSwitch.setOnCheckedChangeListener { _, isChecked ->
-            item.isChecked = isChecked
-            onToggleChanged(item, isChecked)
-        }
     }
+
 
     override fun getItemCount(): Int = filteredItems.size
 

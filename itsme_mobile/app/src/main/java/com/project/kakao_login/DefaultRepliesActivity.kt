@@ -50,9 +50,7 @@ class DefaultRepliesActivity : AppCompatActivity() {
         // RecyclerView 설정
         recyclerView = findViewById(R.id.recyclerViewDefaultReplies)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ToggleListAdapter(items) { item, isChecked ->
-            println("Item: ${item.text}, Checked: $isChecked")
-        }
+        adapter = ToggleListAdapter(items)
         recyclerView.adapter = adapter
 
         // SpacingItemDecoration 추가
