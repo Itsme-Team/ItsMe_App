@@ -29,6 +29,14 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.shareKakaoText).setOnClickListener {
             shareToKakao()
         }
+
+        val userNameView = findViewById<TextView>(R.id.profileEditText)
+        viewModel.getUserName()?.let{ username ->
+            userNameView.text = username
+        }?: run{
+            userNameView.text = "사용자 이름"
+        }
+
         // 뒤로가기 버튼 이벤트 처리
         val backButton: ImageView = findViewById(R.id.backButton)
         backButton.setOnClickListener {
