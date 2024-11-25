@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkNotificationPermission()
+
         // 알림 권한 확인 및 요청
         if (!isNotificationAccessEnabled()) {
             requestNotificationAccess()
@@ -51,6 +53,28 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             Log.d(TAG, "FCM 등록 토큰 가져오기 성공: $token")
             sendRegistrationToServer(token)
+        }
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    proceedWithLogin()
+                }
+                else -> {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                        NOTIFICATION_PERMISSION_CODE
+                    )
+                }
+            }
+        } else {
+            proceedWithLogin()
         }
     }
 
@@ -116,6 +140,12 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // onResume에서는 별도로 권한 확인 로직을 실행하지 않음
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onRequestPermissionsResult(
