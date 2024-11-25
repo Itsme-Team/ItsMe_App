@@ -1,12 +1,18 @@
 package com.project.kakao_login
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
 import com.project.kakao_login.databinding.ActivityMainBinding
@@ -16,10 +22,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.provider.Settings
 
 class MainActivity : AppCompatActivity() {
     private val kakaoAuthViewModel: KakaoAuthViewModel by viewModels()
     private val TAG = "MainActivity"
+    private val NOTIFICATION_PERMISSION_CODE = 100
 
     private lateinit var binding: ActivityMainBinding
 
@@ -28,6 +36,42 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkNotificationPermission()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
+                return@addOnCompleteListener
+            }
+            val token = task.result
+            Log.d(TAG, "FCM 등록 토큰 가져오기 성공: $token")
+            sendRegistrationToServer(token)
+        }
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    proceedWithLogin()
+                }
+                else -> {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                        NOTIFICATION_PERMISSION_CODE
+                    )
+                }
+            }
+        } else {
+            proceedWithLogin()
+        }
+    }
+
+    private fun proceedWithLogin() {
         initUI()
 
         lifecycleScope.launch {
@@ -39,16 +83,6 @@ class MainActivity : AppCompatActivity() {
                     hideLoading()
                 }
             }
-        }
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
-                return@addOnCompleteListener
-            }
-            val token = task.result
-            Log.d(TAG, "FCM 등록 토큰 가져오기 성공: $token")
-            sendRegistrationToServer(token)
         }
     }
 
@@ -79,6 +113,55 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, RequestActivity::class.java)
         startActivity(intent)
         finish()
+    }
+    override fun onResume() {
+        super.onResume()
+
+        if (!isNotificationAccessEnabled()) {
+            // 알림 접근 권한이 없으면 설정 화면 요청
+            requestNotificationAccess()
+        } else {
+            // 권한이 활성화된 경우 다음 화면으로 이동
+            startMainActivity()
+        }
+    }
+
+    private fun isNotificationAccessEnabled(): Boolean {
+        val enabledListeners = Settings.Secure.getString(
+            contentResolver,
+            "enabled_notification_listeners"
+        )
+        val packageName = packageName
+        return !enabledListeners.isNullOrEmpty() && enabledListeners.contains(packageName)
+    }
+
+    private fun requestNotificationAccess() {
+        Toast.makeText(this, "알림 접근 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+        startActivity(intent)
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            NOTIFICATION_PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    proceedWithLogin()
+                } else {
+                    Toast.makeText(this, "알림 권한이 필요합니다", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }
     }
 
     private fun sendRegistrationToServer(token: String) {

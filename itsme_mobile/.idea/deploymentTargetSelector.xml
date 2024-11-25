@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-10T18:25:22.211670200Z">
+        <DropdownSelection timestamp="2024-11-25T16:27:50.989849900Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=R3CR10MSAXE" />
@@ -15,7 +15,7 @@
       </SelectionState>
       <SelectionState runConfigName="wearapp">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-24T13:04:49.422464200Z">
+        <DropdownSelection timestamp="2024-11-25T16:27:46.664423600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=R3CR10MSAXE" />

@@ -412,9 +412,11 @@ class RequestActivity : AppCompatActivity() {
             val isEnabled = data?.getBooleanExtra("IS_ENABLED", true) ?: true
 
             if (roomName != null && updatedReplyList != null) {
+                val formattedReplyList = "['" + updatedReplyList.split(",").joinToString("', '") + "']"
+
                 val updatedItems = adapter.getItems().map {
                     if (it.room == roomName) {
-                        it.copy(reply_list = updatedReplyList, isEnabled = isEnabled)  // savedDate 파라미터 제거
+                        it.copy(reply_list = formattedReplyList, isEnabled = isEnabled)
                     } else {
                         it
                     }
@@ -423,8 +425,7 @@ class RequestActivity : AppCompatActivity() {
                 saveDataToSharedPreferences(updatedItems)
                 sendSavedDataToWear(convertChatItemsToString(updatedItems))
 
-                // 변경 사항을 로그로 출력
-                Log.d("RequestActivity", "Updated reply list for room $roomName: $updatedReplyList")
+                Log.d("RequestActivity", "Updated reply list for room $roomName: $formattedReplyList")
             }
         }
     }

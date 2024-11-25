@@ -5,8 +5,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import android.content.Context
+import android.provider.Settings
+import android.text.TextUtils
+
 
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
@@ -16,5 +22,6 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 1500) // 1초 지연
+
     }
 }
