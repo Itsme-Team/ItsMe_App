@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FB">
-
+    android:background="#F5FAFF">
+    <!--#F5F7FB -->
     <!-- 왼쪽 뒤로가기 버튼 -->
     <ImageView
         android:id="@+id/backButton"
