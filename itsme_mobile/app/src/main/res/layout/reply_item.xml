@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingVertical="12dp"
+        android:paddingVertical="16dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -16,9 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:fontFamily="@font/pretendard_semibold"
             android:paddingStart="20dp"
-            android:paddingEnd="8dp"/>
+            android:paddingEnd="8dp"
+            android:textColor="#000000"
+            android:textSize="16.5sp" />
 
         <ImageView
             android:id="@+id/ivEdit"
