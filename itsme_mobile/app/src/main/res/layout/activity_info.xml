@@ -1,6 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,18 +41,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/pageDescription"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/speechBubble"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 말풍선 -->
     <LinearLayout
         android:id="@+id/speechBubble"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
         android:background="@drawable/speech_bubble"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintTop_toBottomOf="@id/viewPager"
         app:layout_constraintBottom_toTopOf="@id/pageImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,20 +68,22 @@
             android:text="기본 답변 리스트에 접속하면, 변환 가능한 답변이 모두 보이고, 버튼을 클릭해 그대로 가져갈 수 있어요!"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginTop="-12dp"/>
     </LinearLayout>
 
     <!-- 페이지별 이미지 -->
     <ImageView
-    android:id="@+id/pageImageView"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:layout_marginTop="16dp"
-    app:layout_constraintTop_toBottomOf="@id/viewPager"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:scaleType="fitCenter"
-    android:contentDescription="Page specific image" />
+        android:id="@+id/pageImageView"
+        android:layout_width="320dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="Page specific image"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speechBubble"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

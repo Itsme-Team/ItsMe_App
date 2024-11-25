@@ -5,19 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 class ExampleFragment : Fragment() {
 
     companion object {
-        private const val ARG_TITLE = "arg_title"
-        private const val ARG_MESSAGE = "arg_message"
+        private const val ARG_IMAGE_RES = "image_res"
 
-        fun newInstance(title: String, message: String): ExampleFragment {
+        fun newInstance(imageRes: Int): ExampleFragment {
             val fragment = ExampleFragment()
             val args = Bundle()
-            args.putString(ARG_TITLE, title)
-            args.putString(ARG_MESSAGE, message)
+            args.putInt(ARG_IMAGE_RES, imageRes)
             fragment.arguments = args
             return fragment
         }
@@ -28,12 +27,13 @@ class ExampleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_example, container, false)
+        val imageView : ImageView = view.findViewById(R.id.imageView)
 
-        val titleTextView: TextView = view.findViewById(R.id.titleTextView)
-        val messageTextView: TextView = view.findViewById(R.id.messageTextView)
-
-        titleTextView.text = arguments?.getString(ARG_TITLE)
-        messageTextView.text = arguments?.getString(ARG_MESSAGE)
+        // 전달받은 이미지 리소스를 설정
+        val imageRes = arguments?.getInt(ARG_IMAGE_RES)
+        imageRes?.let{
+            imageView.setImageResource(it)
+        }
 
         return view
     }

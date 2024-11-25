@@ -273,31 +273,32 @@ class RequestActivity : AppCompatActivity() {
     }
 
     private fun updateAndSaveData(newItems: List<ChatItem>) {
-        // 1. 기존 저장된 데이터 불러오기
         val existingData = sharedPreferences.getString("chatData", null)
         val existingItems = if (existingData != null) parseSavedData(existingData) else emptyList()
 
-        // 2. 새로운 방들만 찾기 (기존에 없는 방들)
-        val newRooms = newItems.filter { newItem ->
-            existingItems.none { it.room == newItem.room }
+        // room을 키로 사용하는 Map으로 변환하여 중복 처리
+        val itemsMap = existingItems.associateBy { it.room.trim() }.toMutableMap()
+
+        // 새로운 아이템은 기존에 없을 때만 현재 시간으로 저장
+        val currentDateTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+        newItems.forEach { newItem ->
+            val trimmedRoom = newItem.room.trim()
+            if (!itemsMap.containsKey(trimmedRoom)) {
+                // 새로운 아이템만 현재 시간으로 저장
+                itemsMap[trimmedRoom] = newItem.copy(savedDate = currentDateTime)
+            }
+            // 기존 아이템은 원래 저장된 시간 유지
         }
 
-        // 3. 기존 항목은 그대로 유지하고 새로운 방들만 추가
-        val mergedItems = existingItems + newRooms
+        val mergedItems = itemsMap.values.toList()
 
-        // 4. 병합된 데이터 저장
         val result = convertChatItemsToString(mergedItems)
         sharedPreferences.edit().putString("chatData", result).apply()
-
-        // 5. UI 업데이트
         updateRecyclerView(mergedItems)
-
-        // 6. 웨어러블 기기로 데이터 전송
         sendSavedDataToWear(result)
 
-        // 로그로 변경사항 확인
         Log.d(TAG, "Existing items count: ${existingItems.size}")
-        Log.d(TAG, "New items added: ${newRooms.size}")
+        Log.d(TAG, "New unique items added: ${mergedItems.size - existingItems.size}")
         Log.d(TAG, "Total items after merge: ${mergedItems.size}")
     }
 
