@@ -27,7 +27,9 @@ class ReplyListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reply_list)
-
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
         roomName = intent.getStringExtra("ROOM_NAME") ?: "Unknown Room"
         val replyListString = intent.getStringExtra("REPLY_LIST") ?: "[]"
         isEnabled = intent.getBooleanExtra("IS_ENABLED", true)

@@ -8,4 +8,7 @@
         <item name="colorSecondary">#03DAC6</item>
         <item name="colorOnSecondary">#000000</item>
     </style>
+    <style name="BottomNavTextSize" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">8sp</item>
+    </style>
 </resources>

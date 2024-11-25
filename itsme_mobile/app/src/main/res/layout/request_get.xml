@@ -11,7 +11,8 @@
         android:id="@+id/userProfileContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
         android:background="@color/light_blue_background1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,14 +20,15 @@
 
         <ImageView
             android:id="@+id/userProfileImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+
+            android:contentDescription="Profile Picture"
             android:src="@drawable/ic_user_picture"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="Profile Picture" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
             android:id="@+id/userInfoContainer"
@@ -43,9 +45,10 @@
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="it's "
-                android:textSize="20sp"
-                android:textColor="@color/gray_dark" />
+                android:text="it's  "
+                android:textSize="17sp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/userNameText"
@@ -53,14 +56,15 @@
                 android:layout_height="wrap_content"
                 android:text="사용자 이름"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="@color/blue_primary" />
+                android:textColor="#3C84DB"
+                android:fontFamily="@font/pretendard_semibold"/>
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnInfo"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/ic_question_mark"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Information Button"
@@ -76,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
+
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@color/white"
@@ -84,29 +88,48 @@
         android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/userProfileContainer">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvQuestion"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="기본 답변 리스트가 궁금하다면?"
-                android:textSize="12sp"
-                android:textColor="@color/gray_dark" />
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="16dp"
+                android:layout_toStartOf="@+id/forwardIcon">  <!-- 아이콘 왼쪽에 배치 -->
 
-            <TextView
-                android:id="@+id/tvDefaultAction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기본 답변 리스트 보러가기"
-                android:textSize="16sp"
-                android:textColor="@color/blue_primary"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기본 답변 리스트가 궁금하다면?"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/pretendard_medium" />
+
+                <TextView
+                    android:id="@+id/tvDefaultAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기본 답변 리스트 보러가기"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="#5A96DD" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/forwardIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_forward_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- 메인 컨텐츠 카드뷰 -->
@@ -126,6 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:padding="16dp">
 
             <!-- 상단 헤더 -->
@@ -148,6 +172,7 @@
                 <ImageButton
                     android:id="@+id/btnRefresh"
                     android:layout_width="24dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_height="24dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_refresh" />
@@ -211,6 +236,8 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
+        app:itemTextAppearanceActive="@style/BottomNavTextSize"
+        app:itemTextAppearanceInactive="@style/BottomNavTextSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
