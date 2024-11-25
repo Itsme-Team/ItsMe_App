@@ -22,6 +22,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.provider.Settings
 
 class MainActivity : AppCompatActivity() {
     private val kakaoAuthViewModel: KakaoAuthViewModel by viewModels()
@@ -113,7 +114,38 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    override fun onResume() {
+        super.onResume()
 
+        if (!isNotificationAccessEnabled()) {
+            // 알림 접근 권한이 없으면 설정 화면 요청
+            requestNotificationAccess()
+        } else {
+            // 권한이 활성화된 경우 다음 화면으로 이동
+            startMainActivity()
+        }
+    }
+
+    private fun isNotificationAccessEnabled(): Boolean {
+        val enabledListeners = Settings.Secure.getString(
+            contentResolver,
+            "enabled_notification_listeners"
+        )
+        val packageName = packageName
+        return !enabledListeners.isNullOrEmpty() && enabledListeners.contains(packageName)
+    }
+
+    private fun requestNotificationAccess() {
+        Toast.makeText(this, "알림 접근 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+        startActivity(intent)
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
