@@ -1,8 +1,10 @@
 package com.project.kakao_login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +16,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.wearable.DataClient
+import com.google.android.gms.wearable.PutDataMapRequest
+import com.google.android.gms.wearable.Wearable
 
 class ReplyListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -23,13 +28,19 @@ class ReplyListActivity : AppCompatActivity() {
     private var replyList: MutableList<String> = mutableListOf()
     private var originalReplyList: List<String> = listOf()
     private lateinit var btnSaveChanges: ImageView
+    private lateinit var dataClient: DataClient
+    private var messageVersion: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reply_list)
+
+        dataClient = Wearable.getDataClient(this)
+
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
+
         roomName = intent.getStringExtra("ROOM_NAME") ?: "Unknown Room"
         val replyListString = intent.getStringExtra("REPLY_LIST") ?: "[]"
         isEnabled = intent.getBooleanExtra("IS_ENABLED", true)
@@ -122,8 +133,50 @@ class ReplyListActivity : AppCompatActivity() {
             putExtra("IS_ENABLED", isEnabled)
         }
         setResult(Activity.RESULT_OK, intent)
+
+        // WearOS 동기화
+        syncToWearOS()
+
         Toast.makeText(this, "변경 사항이 저장되었습니다.", Toast.LENGTH_SHORT).show()
         finish()
+    }
+
+    private fun syncToWearOS() {
+        val sharedPreferences = getSharedPreferences("ChatData", Context.MODE_PRIVATE)
+        val savedData = sharedPreferences.getString("chatData", "")
+        Log.d("SavedData", "$savedData")
+
+        if (!savedData.isNullOrEmpty()) {
+            val (rooms, replies) = formatDataForWear(savedData)
+            sendToWear(rooms, replies)
+        }
+    }
+
+    private fun formatDataForWear(savedData: String): Pair<String, String> {
+        val roomList = StringBuilder()
+        val replyList = StringBuilder()
+
+        savedData.split("\n").forEach { line ->
+            when {
+                line.startsWith("room: ") ->
+                    roomList.append(line.substringAfter("room: ")).append("<sep>")
+                line.startsWith("reply_list: ") ->
+                    replyList.append(line.substringAfter("reply_list: ")).append("<sep>")
+            }
+        }
+
+        return Pair(roomList.toString(), replyList.toString())
+    }
+
+    private fun sendToWear(room: String, reply_list: String) {
+        val request = PutDataMapRequest.create("/reply_list").apply {
+            dataMap.putString("room", room)
+            dataMap.putString("reply_list", reply_list)
+            dataMap.putLong("time", System.currentTimeMillis())
+            dataMap.putLong("version", messageVersion++)
+        }.asPutDataRequest().setUrgent()
+
+        dataClient.putDataItem(request)
     }
 
     private fun parseReplyList(replyListString: String): List<String> {
