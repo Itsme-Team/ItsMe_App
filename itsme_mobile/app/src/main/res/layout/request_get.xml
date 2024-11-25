@@ -88,31 +88,48 @@
         android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/userProfileContainer">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvQuestion"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="기본 답변 리스트가 궁금하다면?"
-                android:textSize="10sp"
-                android:fontFamily="@font/pretendard_medium" />
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:padding="16dp"
+                android:layout_toStartOf="@+id/forwardIcon">  <!-- 아이콘 왼쪽에 배치 -->
 
-            <TextView
-                android:id="@+id/tvDefaultAction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기본 답변 리스트 보러가기"
-                android:textSize="16sp"
-                android:fontFamily="@font/pretendard_semibold"
-                android:textColor="#5A96DD"
-                />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기본 답변 리스트가 궁금하다면?"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/pretendard_medium" />
+
+                <TextView
+                    android:id="@+id/tvDefaultAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기본 답변 리스트 보러가기"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textColor="#5A96DD" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/forwardIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_forward_icon"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- 메인 컨텐츠 카드뷰 -->
@@ -219,6 +236,8 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
+        app:itemTextAppearanceActive="@style/BottomNavTextSize"
+        app:itemTextAppearanceInactive="@style/BottomNavTextSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

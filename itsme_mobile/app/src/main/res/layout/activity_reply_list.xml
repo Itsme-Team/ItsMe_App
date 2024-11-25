@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignTop="@id/tvRoomName"
             android:layout_alignBottom="@id/tvRoomName"
             android:layout_marginStart="4dp"
@@ -24,10 +24,10 @@
             android:id="@+id/tvRoomName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="28dp"
+            android:padding="26dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="0dp"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:fontFamily="@font/pretendard_semibold"
             android:textColor="#000000" />
