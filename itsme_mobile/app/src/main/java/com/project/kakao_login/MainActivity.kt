@@ -38,6 +38,13 @@ class MainActivity : AppCompatActivity() {
 
         checkNotificationPermission()
 
+        // 알림 권한 확인 및 요청
+        if (!isNotificationAccessEnabled()) {
+            requestNotificationAccess()
+        } else {
+            proceedWithLogin()
+        }
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "FCM 등록 토큰 가져오기 실패", task.exception)
@@ -69,6 +76,21 @@ class MainActivity : AppCompatActivity() {
         } else {
             proceedWithLogin()
         }
+    }
+
+    private fun isNotificationAccessEnabled(): Boolean {
+        val enabledListeners = Settings.Secure.getString(
+            contentResolver,
+            "enabled_notification_listeners"
+        )
+        val packageName = packageName
+        return !enabledListeners.isNullOrEmpty() && enabledListeners.contains(packageName)
+    }
+
+    private fun requestNotificationAccess() {
+        Toast.makeText(this, "알림 접근 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+        startActivity(intent)
     }
 
     private fun proceedWithLogin() {
@@ -114,31 +136,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     override fun onResume() {
         super.onResume()
-
-        if (!isNotificationAccessEnabled()) {
-            // 알림 접근 권한이 없으면 설정 화면 요청
-            requestNotificationAccess()
-        } else {
-            // 권한이 활성화된 경우 다음 화면으로 이동
-            startMainActivity()
-        }
-    }
-
-    private fun isNotificationAccessEnabled(): Boolean {
-        val enabledListeners = Settings.Secure.getString(
-            contentResolver,
-            "enabled_notification_listeners"
-        )
-        val packageName = packageName
-        return !enabledListeners.isNullOrEmpty() && enabledListeners.contains(packageName)
-    }
-
-    private fun requestNotificationAccess() {
-        Toast.makeText(this, "알림 접근 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
-        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
-        startActivity(intent)
+        // onResume에서는 별도로 권한 확인 로직을 실행하지 않음
     }
 
     private fun startMainActivity() {
@@ -146,6 +147,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
