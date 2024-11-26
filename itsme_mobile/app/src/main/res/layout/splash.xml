@@ -26,11 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="나를 담은 답장,"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#5A96DD"
-                android:padding="2dp"
-                android:paddingVertical="2dp" />
+                android:textColor="#5A96DD"/>
 
             <ImageView
                 android:layout_width="1150dp"

@@ -9,11 +9,11 @@ plugins {
 
 
 android {
-    namespace = "com.project.kakao_login"
+    namespace = "com.project.itsme"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.project.kakao_login"
+        applicationId = "com.project.itsme"
         minSdk = 24
         targetSdk = 34
         versionCode = 3
@@ -55,6 +55,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
